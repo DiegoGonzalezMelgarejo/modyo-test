@@ -18,8 +18,8 @@ public class GetPokemonsHandler {
 
     public ResponseListDtos getPokemons(int offSet, int limit){
         List<PokemonDto> pokemonDtos =getPokemonsService.getPokemons(offSet,limit);
-        String prev=offSet-limit<0?"":"https://diego-modyo.herokuapp.com/pokemon?offSet="+(offSet-limit)+"&limit="+limit;
-        String next="https://diego-modyo.herokuapp.com/pokemon?offSet="+(offSet+limit)+"&limit="+limit;
+        String prev=offSet-limit<0?"":"https://modyo-test-diego.herokuapp.com/?offSet="+(offSet-limit)+"&limit="+limit;
+        String next="https://modyo-test-diego.herokuapp.com?offSet="+(offSet+limit)+"&limit="+limit;
         return ResponseListDtos.builder().pokemonDtos(pokemonDtos).next(next).prev(prev).build();
     }
 }
