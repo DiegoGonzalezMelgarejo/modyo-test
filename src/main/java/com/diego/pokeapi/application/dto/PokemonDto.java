@@ -6,7 +6,7 @@ import lombok.experimental.SuperBuilder;
 import java.util.List;
 @Data
 @SuperBuilder(toBuilder = true)
-public class PokemoDto {
+public class PokemonDto {
     private String name;
     private String type;
     private Integer weight;

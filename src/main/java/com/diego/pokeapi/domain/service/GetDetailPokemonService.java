@@ -1,10 +1,7 @@
 package com.diego.pokeapi.domain.service;
 
 import com.diego.pokeapi.application.dto.DetailPokemonDto;
-import com.diego.pokeapi.application.dto.PokemoDto;
 import com.diego.pokeapi.domain.port.PokemonPort;
-
-import java.util.List;
 
 
 public class GetDetailPokemonService {

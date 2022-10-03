@@ -1,6 +1,8 @@
 package com.diego.pokeapi.infraestructure.proxy.rest;
 
 import com.diego.pokeapi.domain.port.PokemonPort;
+import com.diego.pokeapi.infraestructure.exception.SourceApiClientException;
+import com.diego.pokeapi.infraestructure.exception.SourceApiServerException;
 import com.diego.pokeapi.infraestructure.model.EvolutionChain;
 import com.diego.pokeapi.infraestructure.model.PokemonResource;
 import com.diego.pokeapi.infraestructure.model.PokemonResponse;
@@ -31,7 +33,7 @@ public class PokeApiRest {
     private final String pokemonUrl;
 
     public PokeApiRest(RestTemplate restTemplate,
-                        @Value("${pokeapi.pokemon.url}") String pokemonUrl) {
+                       @Value("${pokeapi.pokemon.url}") String pokemonUrl) {
         this.restTemplate = restTemplate;
         this.pokemonUrl = pokemonUrl;
     }
@@ -66,11 +68,29 @@ public class PokeApiRest {
 
 
     private <T> T fetchResource(String resourceUrl, Class<T> responseType) {
-
+        try {
             ResponseEntity<T> responseEntity = restTemplate.getForEntity(resourceUrl, responseType);
             return responseEntity.getBody();
 
+        } catch (HttpClientErrorException e) {
+            log.error("cannotGetResource, url={}, statusCode={}, cause={}", resourceUrl, e.getStatusCode(),
+                    e.getMostSpecificCause().getMessage());
+            String message = buildErrorMessage(responseType, resourceUrl, e.getMessage());
+            throw new SourceApiClientException(message, e.getStatusCode(), e);
+        } catch (HttpServerErrorException e) {
+            log.error("cannotGetResource, url={}, statusCode={}, cause={}", resourceUrl, e.getStatusCode(),
+                    e.getMostSpecificCause().getMessage());
+            String message = buildErrorMessage(responseType, resourceUrl, e.getMessage());
+            throw new SourceApiServerException(message, e.getStatusCode(), e);
+        } catch (RestClientException e) {
+            log.error("cannotGetResource, url={}, cause={}", resourceUrl, e.getMostSpecificCause().getMessage());
+            String message = buildErrorMessage(responseType, resourceUrl, e.getMessage());
+            throw new SourceApiServerException(message, HttpStatus.INTERNAL_SERVER_ERROR, e);
+        }
     }
 
-
+    private <T> String buildErrorMessage(Class<T> resourceType, String url, String error) {
+        return String.format("Cannot resolve type '%s' with url '%s' due to '%s'",
+                resourceType.getSimpleName(), url, error);
+    }
 }

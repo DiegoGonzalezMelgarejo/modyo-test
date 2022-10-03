@@ -1,6 +1,6 @@
 package com.diego.pokeapi.handler;
 
-import com.diego.pokeapi.application.dto.PokemoDto;
+import com.diego.pokeapi.application.dto.PokemonDto;
 import com.diego.pokeapi.application.dto.ResponseListDtos;
 import com.diego.pokeapi.application.handler.GetPokemonsHandler;
 import com.diego.pokeapi.domain.service.GetPokemonsService;
@@ -21,10 +21,10 @@ public class GetPokemonsHandlerTest {
     private  GetPokemonsService getPokemonsService;
     @Test
     public void  getPokemons(){
-        when(getPokemonsService.getPokemons(anyInt(),anyInt())).thenReturn(Arrays.asList(PokemoDto.builder().type("s").build()));
+        when(getPokemonsService.getPokemons(anyInt(),anyInt())).thenReturn(Arrays.asList(PokemonDto.builder().type("s").build()));
         GetPokemonsHandler getPokemonsHandler= new GetPokemonsHandler(getPokemonsService);
         ResponseListDtos result=getPokemonsHandler.getPokemons(0,0);
-        Assert.assertEquals(result.getPokemoDtos().size(),1);
+        Assert.assertEquals(result.getPokemonDtos().size(),1);
     }
 
 }

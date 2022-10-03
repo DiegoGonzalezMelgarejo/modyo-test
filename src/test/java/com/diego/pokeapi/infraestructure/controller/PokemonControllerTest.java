@@ -1,7 +1,7 @@
 package com.diego.pokeapi.infraestructure.controller;
 
 import com.diego.pokeapi.application.dto.DetailPokemonDto;
-import com.diego.pokeapi.application.dto.PokemoDto;
+import com.diego.pokeapi.application.dto.PokemonDto;
 import com.diego.pokeapi.application.dto.ResponseListDtos;
 import com.diego.pokeapi.application.handler.GetPokemonDetailHandler;
 import com.diego.pokeapi.application.handler.GetPokemonsHandler;
@@ -61,7 +61,7 @@ public class PokemonControllerTest {
 
     @Test
     void shouldGetPokemons() throws Exception {
-        PokemoDto pokemon = PokemoDto.builder()
+        PokemonDto pokemon = PokemonDto.builder()
                 .name("bulbasaur")
                 .type("grass, poison")
                 .weight(69)

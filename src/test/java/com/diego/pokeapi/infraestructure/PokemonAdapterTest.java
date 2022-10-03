@@ -1,7 +1,6 @@
 package com.diego.pokeapi.infraestructure;
 
-import com.diego.pokeapi.application.dto.DetailPokemonDto;
-import com.diego.pokeapi.application.dto.PokemoDto;
+import com.diego.pokeapi.application.dto.PokemonDto;
 import com.diego.pokeapi.infraestructure.adapter.PokemonAdapter;
 import com.diego.pokeapi.infraestructure.model.ChainLink;
 import com.diego.pokeapi.infraestructure.model.EvolutionChain;
@@ -52,7 +51,7 @@ public class PokemonAdapterTest {
         given(pokeApiProxy.getPokemonResource(otherPokemonName))
                 .willReturn(getPokemonResource());
 
-        List<PokemoDto> all = pokeApiAdapter.getPokemons(0, 20);
+        List<PokemonDto> all = pokeApiAdapter.getPokemons(0, 20);
 
         assertThat(all).hasSize(2);
 

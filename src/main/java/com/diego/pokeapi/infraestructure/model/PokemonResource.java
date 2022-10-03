@@ -1,7 +1,7 @@
 package com.diego.pokeapi.infraestructure.model;
 
 import com.diego.pokeapi.application.dto.DetailPokemonDto;
-import com.diego.pokeapi.application.dto.PokemoDto;
+import com.diego.pokeapi.application.dto.PokemonDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -49,8 +49,8 @@ public class PokemonResource implements Serializable {
                 .map(NamedResource::getName)
                 .collect(Collectors.toList());
     }
-    public PokemoDto toDomain() {
-        return PokemoDto.builder()
+    public PokemonDto toDomain() {
+        return PokemonDto.builder()
                 .name(this.name)
                 .weight(this.weight)
                 .image(fetchImage(PokemonSprites::getFrontDefault))
