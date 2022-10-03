@@ -19,7 +19,5 @@ public class GetPokemonsService {
         return   pokemonPort.getPokemons(offSet, limit);
     }
 
-    public DetailPokemonDto getPokemon(String name){
-        return pokemonPort.getPokemon(name);
-    }
+
 }
